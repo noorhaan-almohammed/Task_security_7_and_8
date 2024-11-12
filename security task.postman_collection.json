@@ -1,0 +1,5306 @@
+{
+	"info": {
+		"_postman_id": "f7975898-6503-4851-8914-a5b3f7c35895",
+		"name": "security task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "12600872"
+	},
+	"item": [
+		{
+			"name": "tests",
+			"item": [
+				{
+					"name": "create task",
+					"item": [
+						{
+							"name": "create task test sucessed  ",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"Task Created Successfully\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{admin}}"
+									}
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "ta4",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "jkh oi",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "Feature",
+											"type": "text"
+										},
+										{
+											"key": "priority",
+											"value": "Low",
+											"type": "text"
+										},
+										{
+											"key": "due_date",
+											"value": "2024-4-3",
+											"type": "text"
+										},
+										{
+											"key": "assign_to",
+											"value": "4",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "Open",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://127.0.0.1:8001/api/tasks"
+							},
+							"response": [
+								{
+									"name": "create task test sucessed",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "title",
+													"value": "ta4",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "jkh oi",
+													"type": "text"
+												},
+												{
+													"key": "type",
+													"value": "Feature",
+													"type": "text"
+												},
+												{
+													"key": "priority",
+													"value": "Low",
+													"type": "text"
+												},
+												{
+													"key": "due_date",
+													"value": "2024-4-3",
+													"type": "text"
+												},
+												{
+													"key": "assign_to",
+													"value": "4",
+													"type": "text"
+												},
+												{
+													"key": "status",
+													"value": "Open",
+													"type": "text"
+												}
+											]
+										},
+										"url": "http://127.0.0.1:8001/api/tasks"
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "127.0.0.1:8001"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.12"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 11 Nov 2024 20:05:00 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"Task\": {\n        \"id\": 6,\n        \"title\": \"ta4\",\n        \"description\": \"jkh oi\",\n        \"type\": \"Feature\",\n        \"status\": \"Open\",\n        \"priority\": \"Low\",\n        \"due_date\": \"2024-4-3\",\n        \"assigned_to\": {\n            \"id\": 4,\n            \"name\": \"user2\",\n            \"email\": \"user2@example.com\"\n        },\n        \"created_by\": {\n            \"id\": 1,\n            \"name\": \"admin\",\n            \"email\": \"gnourhhaan1994@gmail.com\"\n        },\n        \"dependencies\": [],\n        \"created_at\": \"11-11-2024 20:05:00\",\n        \"updated_at\": \"11-11-2024 20:05:00\",\n        \"comments\": [],\n        \"attachments\": []\n    },\n    \"message\": \"Task Created Successfully\"\n}"
+								}
+							]
+						},
+						{
+							"name": "create task  due date not after today test",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 422\", function () {\r",
+											"    pm.response.to.have.status(422);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"The due date field must be a date after today.\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"The due date field must be a date after today.\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{admin}}"
+									}
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "ta55",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "jkh oi",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "Feature",
+											"type": "text"
+										},
+										{
+											"key": "priority",
+											"value": "Low",
+											"type": "text"
+										},
+										{
+											"key": "due_date",
+											"value": "2024-4-3",
+											"type": "text"
+										},
+										{
+											"key": "assign_to",
+											"value": "4",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "Open",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://127.0.0.1:8001/api/tasks"
+							},
+							"response": []
+						},
+						{
+							"name": "create task  Unprocessable priority test",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 422\", function () {\r",
+											"    pm.response.to.have.status(422);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"The selected priority is invalid.\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"The selected priority is invalid.\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{admin}}"
+									}
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "ta05",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "jkh oi",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "Feature",
+											"type": "text"
+										},
+										{
+											"key": "priority",
+											"value": "lower",
+											"type": "text"
+										},
+										{
+											"key": "due_date",
+											"value": "2024-4-3",
+											"type": "text"
+										},
+										{
+											"key": "assign_to",
+											"value": "4",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "Open",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://127.0.0.1:8001/api/tasks"
+							},
+							"response": []
+						},
+						{
+							"name": "create task  Unprocessable assign to test",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 422\", function () {\r",
+											"    pm.response.to.have.status(422);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"The selected assign to is invalid.\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"The selected assign to is invalid.\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{admin}}"
+									}
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "ta05",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "jkh oi",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "Feature",
+											"type": "text"
+										},
+										{
+											"key": "priority",
+											"value": "Low",
+											"type": "text"
+										},
+										{
+											"key": "due_date",
+											"value": "2024-4-3",
+											"type": "text"
+										},
+										{
+											"key": "assign_to",
+											"value": "99999",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "Open",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://127.0.0.1:8001/api/tasks"
+							},
+							"response": []
+						},
+						{
+							"name": "create task  Unprocessable Content test",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 422\", function () {\r",
+											"    pm.response.to.have.status(422);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"The status field is required.\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"The status field is required.\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{admin}}"
+									}
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "ta05",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "jkh oi",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "Feature",
+											"type": "text"
+										},
+										{
+											"key": "priority",
+											"value": "Low",
+											"type": "text"
+										},
+										{
+											"key": "due_date",
+											"value": "2024-4-3",
+											"type": "text"
+										},
+										{
+											"key": "assign_to",
+											"value": "4",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "Open",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": "http://127.0.0.1:8001/api/tasks"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "assign task",
+					"item": [
+						{
+							"name": "assign task to admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"Cannot assign task to an admin.\");\r",
+											"});\r",
+											"pm.test(\"Status code is 422\", function () {\r",
+											"    pm.response.to.have.status(422);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{admin}}"
+									}
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "assign_to",
+											"value": "2",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://127.0.0.1:8001/api/tasks/1/assign"
+							},
+							"response": [
+								{
+									"name": "assign task to admin",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "assign_to",
+													"value": "2",
+													"type": "text"
+												}
+											]
+										},
+										"url": "http://127.0.0.1:8001/api/tasks/1/assign"
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "127.0.0.1:8001"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.12"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 12 Nov 2024 15:35:25 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Cannot assign task to an admin.\",\n    \"errors\": {\n        \"assign_to\": [\n            \"Cannot assign task to an admin.\"\n        ]\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "assign task already assigned",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"Task already assigned to user\");\r",
+											"});\r",
+											"pm.test(\"Status code is 409\", function () {\r",
+											"    pm.response.to.have.status(409);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{admin}}"
+									}
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "assign_to",
+											"value": "3",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://127.0.0.1:8001/api/tasks/1/assign"
+							},
+							"response": [
+								{
+									"name": "assign task to admin",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "assign_to",
+													"value": "2",
+													"type": "text"
+												}
+											]
+										},
+										"url": "http://127.0.0.1:8001/api/tasks/1/assign"
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "127.0.0.1:8001"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.12"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 12 Nov 2024 15:35:25 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Cannot assign task to an admin.\",\n    \"errors\": {\n        \"assign_to\": [\n            \"Cannot assign task to an admin.\"\n        ]\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "assign task successfully",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"Task Assigned Successfully\");\r",
+											"});\r",
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{admin}}"
+									}
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "assign_to",
+											"value": "3",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://127.0.0.1:8001/api/tasks/3/assign"
+							},
+							"response": [
+								{
+									"name": "assign task to admin",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "assign_to",
+													"value": "2",
+													"type": "text"
+												}
+											]
+										},
+										"url": "http://127.0.0.1:8001/api/tasks/1/assign"
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "127.0.0.1:8001"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.2.12"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 12 Nov 2024 15:35:25 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "X-RateLimit-Limit",
+											"value": "60"
+										},
+										{
+											"key": "X-RateLimit-Remaining",
+											"value": "59"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Cannot assign task to an admin.\",\n    \"errors\": {\n        \"assign_to\": [\n            \"Cannot assign task to an admin.\"\n        ]\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "assign task to user not excist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"User not found\");\r",
+											"});\r",
+											"pm.test(\"Status code is 422\", function () {\r",
+											"    pm.response.to.have.status(422);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{admin}}"
+									}
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "assign_to",
+											"value": "20000",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://127.0.0.1:8001/api/tasks/1/assign"
+							},
+							"response": []
+						},
+						{
+							"name": "assign task not excists",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"Not found\");\r",
+											"});\r",
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{admin}}"
+									}
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "assign_to",
+											"value": "20000",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://127.0.0.1:8001/api/tasks/1000/assign"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"User logged in successfully\");\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "gnourhhaan1994@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://127.0.0.1:8001/api/login"
+			},
+			"response": [
+				{
+					"name": "login succefully",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "gnourhhaan1994@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8001/api/login"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 11 Nov 2024 18:26:46 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Login Successful\": {\n        \"user\": {\n            \"id\": 1,\n            \"name\": \"admin\",\n            \"email\": \"gnourhhaan1994@gmail.com\"\n        },\n        \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzMxMzQ5NjA2LCJleHAiOjE3MzEzNTMyMDYsIm5iZiI6MTczMTM0OTYwNiwianRpIjoiSHk0bmJ0Q3k0WDhDakUxdiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.IWlufczQCXJy6gS1Ysy6oYFfVbkYdMNAkOhua209S8U\"\n    },\n    \"message\": \"User logged in successfully\"\n}"
+				}
+			]
+		},
+		{
+			"name": "login user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "user1@example.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://127.0.0.1:8001/api/login"
+			},
+			"response": [
+				{
+					"name": "login user success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "user2@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8001/api/login"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 20 Oct 2024 19:07:06 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Login Successful\": {\n        \"user\": {\n            \"id\": 4,\n            \"name\": \"user1\",\n            \"email\": \"user2@example.com\"\n        },\n        \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzI5NDUxMjI2LCJleHAiOjE3Mjk0NTQ4MjYsIm5iZiI6MTcyOTQ1MTIyNiwianRpIjoiZFhIRVd1SFdwZFk1Z1ZTayIsInN1YiI6IjQiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.UyINslQNZrvaW7aTOtC1n2C0UO8_VsKeO81qXTrcUDw\"\n    },\n    \"message\": \"User logged in successfully\"\n}"
+				}
+			]
+		},
+		{
+			"name": "create user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 201\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response has the required fields name, email\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.User).to.exist;\r",
+							"    pm.expect(responseData.User.name).to.exist;\r",
+							"    pm.expect(responseData.User.email).to.exist;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Email is in a valid email format\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.User.email).to.be.a('string').and.to.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 2s\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{admin}}"
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "user1",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "user9@example.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://127.0.0.1:8001/api/users"
+			},
+			"response": [
+				{
+					"name": "create user succefully",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "noor",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "noor2@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8001/api/users"
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 17 Oct 2024 11:45:29 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"User\": {\n        \"id\": 5,\n        \"name\": \"noor\",\n        \"email\": \"noor2@gmail.com\"\n    },\n    \"message\": \"User Created Successfully\"\n}"
+				},
+				{
+					"name": "create user test",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "user1",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "user9@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8001/api/users"
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 09 Nov 2024 19:26:40 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "deny"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-Permitted-Cross-Domain-Policies",
+							"value": "none"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "no-referrer"
+						},
+						{
+							"key": "Cross-Origin-Embedder-Policy",
+							"value": "require-corp"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'none'; style-src 'self'; form-action 'self'"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"User\": {\n        \"id\": 27,\n        \"name\": \"user1\",\n        \"email\": \"user9@example.com\"\n    },\n    \"message\": \"User Created Successfully\"\n}"
+				}
+			]
+		},
+		{
+			"name": "profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzI5MTY2ODY5LCJleHAiOjE3MjkxNzA0NjksIm5iZiI6MTcyOTE2Njg2OSwianRpIjoieENXYUxDdlhPcXFES1FsbSIsInN1YiI6IjUiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.4-SpiOVkdrYKx-GNP9vNM1ZQdhYUmGU-JulZ4vXWE-Q"
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": "http://127.0.0.1:8001/api/profile"
+			},
+			"response": []
+		},
+		{
+			"name": "create task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzI5NDQzMDIyLCJleHAiOjE3Mjk0NDY2MjIsIm5iZiI6MTcyOTQ0MzAyMiwianRpIjoicHlFb0dDV2R6VnNiUUd3dCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.WVKDYYAbZrcTIXRwZk8MhhOeL5-KmIaxnChCoT2oxo8"
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "ta1",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "jkh oi",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "Feature",
+							"type": "text"
+						},
+						{
+							"key": "priority",
+							"value": "Low",
+							"type": "text"
+						},
+						{
+							"key": "due_date",
+							"value": "2024-4-3",
+							"type": "text"
+						},
+						{
+							"key": "assign_to",
+							"value": "4",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "Open",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://127.0.0.1:8001/api/tasks"
+			},
+			"response": [
+				{
+					"name": "create task succefully",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "ta1",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "jkh oi",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "Feature",
+									"type": "text"
+								},
+								{
+									"key": "priority",
+									"value": "Low",
+									"type": "text"
+								},
+								{
+									"key": "due_date",
+									"value": "2024-4-3",
+									"type": "text"
+								},
+								{
+									"key": "assign_to",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "Open",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8001/api/tasks"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 20 Oct 2024 17:13:15 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Task\": {\n        \"id\": 28,\n        \"title\": \"ta1\",\n        \"description\": \"jkh oi\",\n        \"type\": \"Feature\",\n        \"status\": \"Open\",\n        \"priority\": \"Low\",\n        \"due_date\": \"2024-4-3\",\n        \"assigned_to\": {\n            \"id\": 4,\n            \"name\": \"user1\",\n            \"email\": \"user2@example.com\"\n        },\n        \"created_by\": {\n            \"id\": 1,\n            \"name\": \"admin\",\n            \"email\": \"admin@example.com\"\n        },\n        \"dependencies\": [],\n        \"created_at\": \"20-10-2024 17:13:15\",\n        \"updated_at\": \"20-10-2024 17:13:15\",\n        \"comments\": [],\n        \"attachments\": []\n    },\n    \"message\": \"Task Created Successfully\"\n}"
+				},
+				{
+					"name": "unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "ta1",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "jkh oi",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "Feature",
+									"type": "text"
+								},
+								{
+									"key": "priority",
+									"value": "Low",
+									"type": "text"
+								},
+								{
+									"key": "due_date",
+									"value": "2024-4-3",
+									"type": "text"
+								},
+								{
+									"key": "assign_to",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "Open",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8001/api/tasks"
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 11 Nov 2024 19:34:38 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Unauthorized\"\n}"
+				}
+			]
+		},
+		{
+			"name": "create task Blocked",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzI5ODU1MTk3LCJleHAiOjE3Mjk4NTg3OTcsIm5iZiI6MTcyOTg1NTE5NywianRpIjoiWFVieHRGcU9wWHpIRlg2TyIsInN1YiI6IjMiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.GAhtq5hAw7WEVg8gGY9iEYAnyLgmkg3GJGi9TFD4O2A"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"task8\",\r\n    \"description\": \"description description description\",\r\n    \"type\": \"Feature\",\r\n    \"priority\": \"Medium\",\r\n    \"due_date\": \"2024-3-27\",\r\n    \"assign_to\": 2,\r\n    \"status\": \"Blocked\",\r\n    \"depends_on\": [1, 2]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://127.0.0.1:8001/api/tasks"
+			},
+			"response": [
+				{
+					"name": "unauth",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"task7\",\r\n    \"description\": \"description description description\",\r\n    \"type\": \"Feature\",\r\n    \"priority\": \"Medium\",\r\n    \"due_date\": \"2024-3-27\",\r\n    \"assign_to\": 4,\r\n    \"status\": \"Blocked\",\r\n    \"depends_on\": [1, 2]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8001/api/tasks"
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 19 Oct 2024 10:22:48 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Unauthorized\"\n}"
+				},
+				{
+					"name": "create task Blocked succefully with depends on",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"task4\",\r\n    \"description\": \"description description description\",\r\n    \"type\": \"Feature\",\r\n    \"priority\": \"Medium\",\r\n    \"due_date\": \"2024-3-27\",\r\n    \"assign_to\": 4,\r\n    \"status\": \"Blocked\",\r\n    \"depends_on\": [1, 2]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8001/api/tasks"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 20 Oct 2024 17:14:51 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Task\": {\n        \"id\": 29,\n        \"title\": \"task4\",\n        \"description\": \"description description description\",\n        \"type\": \"Feature\",\n        \"status\": \"Blocked\",\n        \"priority\": \"Medium\",\n        \"due_date\": \"2024-3-27\",\n        \"assigned_to\": {\n            \"id\": 4,\n            \"name\": \"user1\",\n            \"email\": \"user2@example.com\"\n        },\n        \"created_by\": {\n            \"id\": 1,\n            \"name\": \"admin\",\n            \"email\": \"admin@example.com\"\n        },\n        \"dependencies\": [\n            {\n                \"id\": 1,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 07:21:54\",\n                \"updated_at\": \"19-10-2024 07:21:54\",\n                \"task_dependencies\": {\n                    \"depends_on\": 1\n                }\n            },\n            {\n                \"id\": 2,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 07:22:15\",\n                \"updated_at\": \"19-10-2024 07:22:15\",\n                \"task_dependencies\": {\n                    \"depends_on\": 2\n                }\n            }\n        ],\n        \"created_at\": \"20-10-2024 17:14:51\",\n        \"updated_at\": \"20-10-2024 17:14:51\",\n        \"comments\": [],\n        \"attachments\": []\n    },\n    \"message\": \"Task Created Successfully\"\n}"
+				},
+				{
+					"name": "not found user",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"task7\",\r\n    \"description\": \"description description description\",\r\n    \"type\": \"Bug\",\r\n    \"priority\": \"Low\",\r\n    \"due_date\": \"2024-3-27\",\r\n    \"assign_to\": 5,\r\n    \"status\": \"Blocked\",\r\n    \"depends_on\": [3, 5]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8001/api/tasks"
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 25 Oct 2024 10:05:55 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "\"Trying to assign task to User does not found!\""
+				},
+				{
+					"name": "invalid selected type",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"task7\",\r\n    \"description\": \"description description description\",\r\n    \"type\": \"Buge\",\r\n    \"priority\": \"Low\",\r\n    \"due_date\": \"2024-3-27\",\r\n    \"assign_to\": 5,\r\n    \"status\": \"Blocked\",\r\n    \"depends_on\": [3, 5]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8001/api/tasks"
+					},
+					"status": "Unprocessable Content",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 25 Oct 2024 10:06:37 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"error validation\",\n    \"errors\": {\n        \"type\": [\n            \"The selected type is invalid.\"\n        ]\n    }\n}"
+				},
+				{
+					"name": "required field",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // \"title\": \"task7\",\r\n    \"description\": \"description description description\",\r\n    \"type\": \"Bug\",\r\n    \"priority\": \"Low\",\r\n    \"due_date\": \"2024-3-27\",\r\n    \"assign_to\": 5,\r\n    \"status\": \"Blocked\",\r\n    \"depends_on\": [3, 5]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8001/api/tasks"
+					},
+					"status": "Unprocessable Content",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 25 Oct 2024 10:07:12 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"error validation\",\n    \"errors\": {\n        \"title\": [\n            \"The title field is required.\"\n        ]\n    }\n}"
+				},
+				{
+					"name": "assign to admin",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"task7\",\r\n    \"description\": \"description description description\",\r\n    \"type\": \"Bug\",\r\n    \"priority\": \"Low\",\r\n    \"due_date\": \"2024-3-27\",\r\n    \"assign_to\": 1,\r\n    \"status\": \"Blocked\",\r\n    \"depends_on\": [3, 5]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8001/api/tasks"
+					},
+					"status": "Unprocessable Content",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 25 Oct 2024 10:08:13 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"error validation\",\n    \"errors\": {\n        \"assign_to\": [\n            \"Cannot assign task to an admin.\"\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "add comments",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzMxMDU3NzUxLCJleHAiOjE3MzEwNjEzNTEsIm5iZiI6MTczMTA1Nzc1MSwianRpIjoiS2s1TDE4b1JpVFdsUFMyRSIsInN1YiI6IjMiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.h_cn9JONbFYHVTm6T07fCd57c8sO4gb256ARtfQgbrs"
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "content",
+							"value": "comment3",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://127.0.0.1:8001/api/tasks/3/comments"
+			},
+			"response": [
+				{
+					"name": "add comment successfully",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "content",
+									"value": "comment2",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8001/api/tasks/3/comments"
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 20 Oct 2024 16:56:41 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Task\": {\n        \"id\": 3,\n        \"title\": \"ta\",\n        \"description\": \"jkh oi\",\n        \"type\": \"Feature\",\n        \"status\": \"Open\",\n        \"priority\": \"Low\",\n        \"due_date\": \"2024-05-14\",\n        \"created_at\": \"19-10-2024 07:22:16\",\n        \"updated_at\": \"19-10-2024 07:22:16\",\n        \"comments\": [\n            {\n                \"id\": 3,\n                \"content\": \"comment2\",\n                \"user_id\": 1,\n                \"Task_id\": 3\n            }\n        ]\n    },\n    \"message\": \"Comment added successfully\"\n}"
+				}
+			]
+		},
+		{
+			"name": "update status",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzI5NDUxMjI2LCJleHAiOjE3Mjk0NTQ4MjYsIm5iZiI6MTcyOTQ1MTIyNiwianRpIjoiZFhIRVd1SFdwZFk1Z1ZTayIsInN1YiI6IjQiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.UyINslQNZrvaW7aTOtC1n2C0UO8_VsKeO81qXTrcUDw"
+					}
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "status",
+							"value": "In_Progress",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://127.0.0.1:8001/api/tasks/4/status"
+			},
+			"response": [
+				{
+					"name": "update status successfully",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "status",
+									"value": "In_Progress",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8001/api/tasks/4/status"
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 20 Oct 2024 19:16:26 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Task\": {\n        \"id\": 4,\n        \"title\": \"ta\",\n        \"description\": \"jkh oi\",\n        \"type\": \"Feature\",\n        \"status\": \"In_Progress\",\n        \"priority\": \"Low\",\n        \"due_date\": \"2024-05-14\",\n        \"assigned_to\": {\n            \"id\": 4,\n            \"name\": \"user1\",\n            \"email\": \"user2@example.com\"\n        },\n        \"created_by\": null,\n        \"dependencies\": [],\n        \"created_at\": \"19-10-2024 07:22:18\",\n        \"updated_at\": \"20-10-2024 19:16:26\",\n        \"comments\": [\n            {\n                \"id\": 1,\n                \"content\": \"comment\",\n                \"user_id\": 1,\n                \"Task_id\": 4\n            },\n            {\n                \"id\": 2,\n                \"content\": \"comment2\",\n                \"user_id\": 1,\n                \"Task_id\": 4\n            }\n        ],\n        \"attachments\": []\n    },\n    \"message\": \"Comment added successfully\"\n}"
+				},
+				{
+					"name": "unauthorize user update status",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "status",
+									"value": "In_Progress",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8001/api/tasks/5/status"
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 20 Oct 2024 19:38:39 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"You are not authorized .\"\n}"
+				},
+				{
+					"name": "error status",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "status",
+									"value": "Open",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8001/api/tasks/4/status"
+					},
+					"status": "Unprocessable Content",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Oct 2024 18:24:57 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"status should be In_Progress or Completed\",\n    \"errors\": {\n        \"status\": [\n            \"status should be In_Progress or Completed\"\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "reassign task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzI5NTM1NzQ5LCJleHAiOjE3Mjk1MzkzNDksIm5iZiI6MTcyOTUzNTc0OSwianRpIjoiTENrQnplQWlFbkl0azlqRCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.d4FXmdLA_f3AUAyeSsvfu90QxkMAG3xGD-4H0LkKJnI"
+					}
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "assign_to",
+							"value": "4",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://127.0.0.1:8001/api/tasks/5/reassign"
+			},
+			"response": [
+				{
+					"name": "reassign task succefully",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "assign_to",
+									"value": "16",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8001/api/tasks/5/reassign"
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Oct 2024 18:43:29 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Task\": {\n        \"id\": 5,\n        \"title\": \"ta\",\n        \"description\": \"jkh oi\",\n        \"type\": \"Feature\",\n        \"status\": \"Open\",\n        \"priority\": \"Low\",\n        \"due_date\": \"2024-05-14\",\n        \"assign_to\": \"16\",\n        \"created_at\": \"2024-10-19T07:23:11.000000Z\",\n        \"updated_at\": \"2024-10-19T07:23:11.000000Z\",\n        \"deleted_at\": null,\n        \"created_by\": 1\n    },\n    \"message\": \"Task Reassigned Successfully\"\n}"
+				},
+				{
+					"name": "not creator",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "assign_to",
+									"value": "16",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8001/api/tasks/5/reassign"
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Oct 2024 18:45:00 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"You are not authorized .\"\n}"
+				},
+				{
+					"name": "reassign to user not found",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "assign_to",
+									"value": "1916",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8001/api/tasks/5/reassign"
+					},
+					"status": "Unprocessable Content",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Oct 2024 18:47:26 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"user not found\",\n    \"errors\": {\n        \"assign_to\": [\n            \"user not found\"\n        ]\n    }\n}"
+				},
+				{
+					"name": "reassign task to admin or yourself",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "assign_to",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8001/api/tasks/5/reassign"
+					},
+					"status": "Unprocessable Content",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Oct 2024 19:32:45 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Cannot assign task to an admin. (and 1 more error)\",\n    \"errors\": {\n        \"assign_to\": [\n            \"Cannot assign task to an admin.\",\n            \"You cannot assign a task to yourself.\"\n        ]\n    }\n}"
+				},
+				{
+					"name": "reassign task to same user",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "assign_to",
+									"value": "4",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8001/api/tasks/5/reassign"
+					},
+					"status": "Unprocessable Content",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Oct 2024 19:35:49 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "57"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Task is already assigned to this user.\",\n    \"errors\": {\n        \"assign_to\": [\n            \"Task is already assigned to this user.\"\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "show task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzI5NTQwMDMyLCJleHAiOjE3Mjk1NDM2MzIsIm5iZiI6MTcyOTU0MDAzMiwianRpIjoibTduYWRYN2F6UGRkYkhLRSIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.S4ssfwVRbPll8eMboft56I9gUWx3tLpPj3pbATpmYik"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://127.0.0.1:8001/api/tasks/1"
+			},
+			"response": [
+				{
+					"name": "show task successfully",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:8001/api/tasks/1"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Oct 2024 19:49:02 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Task\": {\n        \"id\": 1,\n        \"title\": \"ta\",\n        \"description\": \"jkh oi\",\n        \"type\": \"Feature\",\n        \"status\": \"Open\",\n        \"priority\": \"Low\",\n        \"due_date\": \"2024-05-14\",\n        \"created_at\": \"19-10-2024 07:21:54\",\n        \"updated_at\": \"19-10-2024 07:21:54\"\n    },\n    \"message\": \"Task retrived Successfully\"\n}"
+				},
+				{
+					"name": "not found",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:8001/api/tasks/1000"
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Oct 2024 19:49:23 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": null,\n    \"message\": \"Not found\"\n}"
+				},
+				{
+					"name": "not admin",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:8001/api/tasks/1"
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Oct 2024 19:49:48 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Unauthorized\"\n}"
+				}
+			]
+		},
+		{
+			"name": "filter task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzI5NTQxMTY4LCJleHAiOjE3Mjk1NDQ3NjgsIm5iZiI6MTcyOTU0MTE2OCwianRpIjoiMGFEQXpXN09LbXMxYWNhWCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.ProIpJHWkYCv8mNegaUPbhGnVY4Ybkkz882eQ6JBhqI"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8001/api/tasks?type=Bug&status=Open&assigned_to=2&due_date=2024-09-30&priority=High&depends_on=null",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"tasks"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "Bug"
+						},
+						{
+							"key": "status",
+							"value": "Open"
+						},
+						{
+							"key": "assigned_to",
+							"value": "2"
+						},
+						{
+							"key": "due_date",
+							"value": "2024-09-30"
+						},
+						{
+							"key": "priority",
+							"value": "High"
+						},
+						{
+							"key": "depends_on",
+							"value": "null"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "not found task",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8001/api/tasks?type=Bug&status=Open&assigned_to=2&due_date=2024-09-30&priority=High&depends_on=null",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "Bug"
+								},
+								{
+									"key": "status",
+									"value": "Open"
+								},
+								{
+									"key": "assigned_to",
+									"value": "2"
+								},
+								{
+									"key": "due_date",
+									"value": "2024-09-30"
+								},
+								{
+									"key": "priority",
+									"value": "High"
+								},
+								{
+									"key": "depends_on",
+									"value": "null"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Oct 2024 20:18:04 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"No Task matched!\"\n}"
+				},
+				{
+					"name": "filter task type",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8001/api/tasks?type=Bug",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "Bug"
+								},
+								{
+									"key": "status",
+									"value": "Open",
+									"disabled": true
+								},
+								{
+									"key": "assign_to",
+									"value": "4",
+									"disabled": true
+								},
+								{
+									"key": "due_date",
+									"value": "2024-09-30",
+									"disabled": true
+								},
+								{
+									"key": "priority",
+									"value": "High",
+									"disabled": true
+								},
+								{
+									"key": "depends_on",
+									"value": "null",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Oct 2024 20:53:11 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Tasks\": {\n        \"data\": [\n            {\n                \"id\": 25,\n                \"title\": \"task13\",\n                \"description\": \"description description description\",\n                \"type\": \"Bug\",\n                \"status\": \"Blocked\",\n                \"priority\": \"High\",\n                \"due_date\": \"2024-08-07\",\n                \"created_at\": \"19-10-2024 12:25:38\",\n                \"updated_at\": \"19-10-2024 12:25:38\"\n            }\n        ],\n        \"links\": {\n            \"first\": \"http://127.0.0.1:8001/api/tasks?page=1\",\n            \"last\": \"http://127.0.0.1:8001/api/tasks?page=1\",\n            \"prev\": null,\n            \"next\": null\n        },\n        \"meta\": {\n            \"current_page\": 1,\n            \"from\": 1,\n            \"last_page\": 1,\n            \"links\": [\n                {\n                    \"url\": null,\n                    \"label\": \"&laquo; Previous\",\n                    \"active\": false\n                },\n                {\n                    \"url\": \"http://127.0.0.1:8001/api/tasks?page=1\",\n                    \"label\": \"1\",\n                    \"active\": true\n                },\n                {\n                    \"url\": null,\n                    \"label\": \"Next &raquo;\",\n                    \"active\": false\n                }\n            ],\n            \"path\": \"http://127.0.0.1:8001/api/tasks\",\n            \"per_page\": 15,\n            \"to\": 1,\n            \"total\": 1\n        }\n    },\n    \"message\": \"Tasks retrived Successfully\"\n}"
+				},
+				{
+					"name": "filter task status",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8001/api/tasks?status=Open",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "Bug",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "Open"
+								},
+								{
+									"key": "assign_to",
+									"value": "4",
+									"disabled": true
+								},
+								{
+									"key": "due_date",
+									"value": "2024-09-30",
+									"disabled": true
+								},
+								{
+									"key": "priority",
+									"value": "High",
+									"disabled": true
+								},
+								{
+									"key": "depends_on",
+									"value": "null",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Oct 2024 20:54:00 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Tasks\": {\n        \"data\": [\n            {\n                \"id\": 1,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 07:21:54\",\n                \"updated_at\": \"19-10-2024 07:21:54\"\n            },\n            {\n                \"id\": 2,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 07:22:15\",\n                \"updated_at\": \"19-10-2024 07:22:15\"\n            },\n            {\n                \"id\": 3,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 07:22:16\",\n                \"updated_at\": \"19-10-2024 07:22:16\"\n            },\n            {\n                \"id\": 5,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 07:23:11\",\n                \"updated_at\": \"21-10-2024 19:33:35\"\n            },\n            {\n                \"id\": 6,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 09:08:38\",\n                \"updated_at\": \"19-10-2024 09:08:38\"\n            },\n            {\n                \"id\": 7,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 09:08:56\",\n                \"updated_at\": \"19-10-2024 09:08:56\"\n            },\n            {\n                \"id\": 8,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 09:09:37\",\n                \"updated_at\": \"19-10-2024 09:09:37\"\n            },\n            {\n                \"id\": 9,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 09:10:49\",\n                \"updated_at\": \"19-10-2024 09:10:49\"\n            },\n            {\n                \"id\": 10,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 09:11:05\",\n                \"updated_at\": \"19-10-2024 09:11:05\"\n            },\n            {\n                \"id\": 11,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 09:13:11\",\n                \"updated_at\": \"19-10-2024 09:13:11\"\n            },\n            {\n                \"id\": 12,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 09:13:47\",\n                \"updated_at\": \"19-10-2024 09:13:47\"\n            },\n            {\n                \"id\": 13,\n                \"title\": \"task1\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"High\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 10:00:52\",\n                \"updated_at\": \"19-10-2024 10:00:52\"\n            },\n            {\n                \"id\": 16,\n                \"title\": \"task5\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"High\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 10:20:35\",\n                \"updated_at\": \"19-10-2024 10:20:35\"\n            },\n            {\n                \"id\": 17,\n                \"title\": \"task6\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"High\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 10:21:21\",\n                \"updated_at\": \"19-10-2024 10:21:21\"\n            },\n            {\n                \"id\": 26,\n                \"title\": \"ta123\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-04-03\",\n                \"created_at\": \"20-10-2024 17:10:46\",\n                \"updated_at\": \"20-10-2024 17:10:46\"\n            }\n        ],\n        \"links\": {\n            \"first\": \"http://127.0.0.1:8001/api/tasks?page=1\",\n            \"last\": \"http://127.0.0.1:8001/api/tasks?page=2\",\n            \"prev\": null,\n            \"next\": \"http://127.0.0.1:8001/api/tasks?page=2\"\n        },\n        \"meta\": {\n            \"current_page\": 1,\n            \"from\": 1,\n            \"last_page\": 2,\n            \"links\": [\n                {\n                    \"url\": null,\n                    \"label\": \"&laquo; Previous\",\n                    \"active\": false\n                },\n                {\n                    \"url\": \"http://127.0.0.1:8001/api/tasks?page=1\",\n                    \"label\": \"1\",\n                    \"active\": true\n                },\n                {\n                    \"url\": \"http://127.0.0.1:8001/api/tasks?page=2\",\n                    \"label\": \"2\",\n                    \"active\": false\n                },\n                {\n                    \"url\": \"http://127.0.0.1:8001/api/tasks?page=2\",\n                    \"label\": \"Next &raquo;\",\n                    \"active\": false\n                }\n            ],\n            \"path\": \"http://127.0.0.1:8001/api/tasks\",\n            \"per_page\": 15,\n            \"to\": 15,\n            \"total\": 17\n        }\n    },\n    \"message\": \"Tasks retrived Successfully\"\n}"
+				},
+				{
+					"name": "filter task assign_to",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8001/api/tasks?assign_to=4",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "Bug",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "Open",
+									"disabled": true
+								},
+								{
+									"key": "assign_to",
+									"value": "4"
+								},
+								{
+									"key": "due_date",
+									"value": "2024-09-30",
+									"disabled": true
+								},
+								{
+									"key": "priority",
+									"value": "High",
+									"disabled": true
+								},
+								{
+									"key": "depends_on",
+									"value": "null",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Oct 2024 20:54:26 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Tasks\": {\n        \"data\": [\n            {\n                \"id\": 1,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 07:21:54\",\n                \"updated_at\": \"19-10-2024 07:21:54\"\n            },\n            {\n                \"id\": 2,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 07:22:15\",\n                \"updated_at\": \"19-10-2024 07:22:15\"\n            },\n            {\n                \"id\": 3,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 07:22:16\",\n                \"updated_at\": \"19-10-2024 07:22:16\"\n            },\n            {\n                \"id\": 4,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"In_Progress\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 07:22:18\",\n                \"updated_at\": \"20-10-2024 19:16:26\"\n            },\n            {\n                \"id\": 5,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 07:23:11\",\n                \"updated_at\": \"21-10-2024 19:33:35\"\n            },\n            {\n                \"id\": 6,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 09:08:38\",\n                \"updated_at\": \"19-10-2024 09:08:38\"\n            },\n            {\n                \"id\": 7,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 09:08:56\",\n                \"updated_at\": \"19-10-2024 09:08:56\"\n            },\n            {\n                \"id\": 8,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 09:09:37\",\n                \"updated_at\": \"19-10-2024 09:09:37\"\n            },\n            {\n                \"id\": 9,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 09:10:49\",\n                \"updated_at\": \"19-10-2024 09:10:49\"\n            },\n            {\n                \"id\": 10,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 09:11:05\",\n                \"updated_at\": \"19-10-2024 09:11:05\"\n            },\n            {\n                \"id\": 11,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 09:13:11\",\n                \"updated_at\": \"19-10-2024 09:13:11\"\n            },\n            {\n                \"id\": 12,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 09:13:47\",\n                \"updated_at\": \"19-10-2024 09:13:47\"\n            },\n            {\n                \"id\": 13,\n                \"title\": \"task1\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"High\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 10:00:52\",\n                \"updated_at\": \"19-10-2024 10:00:52\"\n            },\n            {\n                \"id\": 14,\n                \"title\": \"task2\",\n                \"description\": \"description description description\",\n                \"type\": \"Feature\",\n                \"status\": \"Blocked\",\n                \"priority\": \"Medium\",\n                \"due_date\": \"2024-03-27\",\n                \"created_at\": \"19-10-2024 10:03:04\",\n                \"updated_at\": \"19-10-2024 10:03:04\"\n            },\n            {\n                \"id\": 15,\n                \"title\": \"task3\",\n                \"description\": \"description description description\",\n                \"type\": \"Feature\",\n                \"status\": \"Blocked\",\n                \"priority\": \"Medium\",\n                \"due_date\": \"2024-03-27\",\n                \"created_at\": \"19-10-2024 10:04:54\",\n                \"updated_at\": \"19-10-2024 10:04:54\"\n            }\n        ],\n        \"links\": {\n            \"first\": \"http://127.0.0.1:8001/api/tasks?page=1\",\n            \"last\": \"http://127.0.0.1:8001/api/tasks?page=2\",\n            \"prev\": null,\n            \"next\": \"http://127.0.0.1:8001/api/tasks?page=2\"\n        },\n        \"meta\": {\n            \"current_page\": 1,\n            \"from\": 1,\n            \"last_page\": 2,\n            \"links\": [\n                {\n                    \"url\": null,\n                    \"label\": \"&laquo; Previous\",\n                    \"active\": false\n                },\n                {\n                    \"url\": \"http://127.0.0.1:8001/api/tasks?page=1\",\n                    \"label\": \"1\",\n                    \"active\": true\n                },\n                {\n                    \"url\": \"http://127.0.0.1:8001/api/tasks?page=2\",\n                    \"label\": \"2\",\n                    \"active\": false\n                },\n                {\n                    \"url\": \"http://127.0.0.1:8001/api/tasks?page=2\",\n                    \"label\": \"Next &raquo;\",\n                    \"active\": false\n                }\n            ],\n            \"path\": \"http://127.0.0.1:8001/api/tasks\",\n            \"per_page\": 15,\n            \"to\": 15,\n            \"total\": 27\n        }\n    },\n    \"message\": \"Tasks retrived Successfully\"\n}"
+				},
+				{
+					"name": "filter task due_date",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8001/api/tasks?due_date=2024-5-14",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "Bug",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "Open",
+									"disabled": true
+								},
+								{
+									"key": "assign_to",
+									"value": "4",
+									"disabled": true
+								},
+								{
+									"key": "due_date",
+									"value": "2024-5-14"
+								},
+								{
+									"key": "priority",
+									"value": "High",
+									"disabled": true
+								},
+								{
+									"key": "depends_on",
+									"value": "null",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Oct 2024 20:55:34 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Tasks\": {\n        \"data\": [\n            {\n                \"id\": 1,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 07:21:54\",\n                \"updated_at\": \"19-10-2024 07:21:54\"\n            },\n            {\n                \"id\": 2,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 07:22:15\",\n                \"updated_at\": \"19-10-2024 07:22:15\"\n            },\n            {\n                \"id\": 3,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 07:22:16\",\n                \"updated_at\": \"19-10-2024 07:22:16\"\n            },\n            {\n                \"id\": 4,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"In_Progress\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 07:22:18\",\n                \"updated_at\": \"20-10-2024 19:16:26\"\n            },\n            {\n                \"id\": 5,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 07:23:11\",\n                \"updated_at\": \"21-10-2024 19:33:35\"\n            },\n            {\n                \"id\": 6,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 09:08:38\",\n                \"updated_at\": \"19-10-2024 09:08:38\"\n            },\n            {\n                \"id\": 7,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 09:08:56\",\n                \"updated_at\": \"19-10-2024 09:08:56\"\n            },\n            {\n                \"id\": 8,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 09:09:37\",\n                \"updated_at\": \"19-10-2024 09:09:37\"\n            },\n            {\n                \"id\": 9,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 09:10:49\",\n                \"updated_at\": \"19-10-2024 09:10:49\"\n            },\n            {\n                \"id\": 10,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 09:11:05\",\n                \"updated_at\": \"19-10-2024 09:11:05\"\n            },\n            {\n                \"id\": 11,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 09:13:11\",\n                \"updated_at\": \"19-10-2024 09:13:11\"\n            },\n            {\n                \"id\": 12,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 09:13:47\",\n                \"updated_at\": \"19-10-2024 09:13:47\"\n            },\n            {\n                \"id\": 13,\n                \"title\": \"task1\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"High\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 10:00:52\",\n                \"updated_at\": \"19-10-2024 10:00:52\"\n            },\n            {\n                \"id\": 16,\n                \"title\": \"task5\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"High\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 10:20:35\",\n                \"updated_at\": \"19-10-2024 10:20:35\"\n            },\n            {\n                \"id\": 17,\n                \"title\": \"task6\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"High\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 10:21:21\",\n                \"updated_at\": \"19-10-2024 10:21:21\"\n            }\n        ],\n        \"links\": {\n            \"first\": \"http://127.0.0.1:8001/api/tasks?page=1\",\n            \"last\": \"http://127.0.0.1:8001/api/tasks?page=1\",\n            \"prev\": null,\n            \"next\": null\n        },\n        \"meta\": {\n            \"current_page\": 1,\n            \"from\": 1,\n            \"last_page\": 1,\n            \"links\": [\n                {\n                    \"url\": null,\n                    \"label\": \"&laquo; Previous\",\n                    \"active\": false\n                },\n                {\n                    \"url\": \"http://127.0.0.1:8001/api/tasks?page=1\",\n                    \"label\": \"1\",\n                    \"active\": true\n                },\n                {\n                    \"url\": null,\n                    \"label\": \"Next &raquo;\",\n                    \"active\": false\n                }\n            ],\n            \"path\": \"http://127.0.0.1:8001/api/tasks\",\n            \"per_page\": 15,\n            \"to\": 15,\n            \"total\": 15\n        }\n    },\n    \"message\": \"Tasks retrived Successfully\"\n}"
+				},
+				{
+					"name": "filter task priority",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8001/api/tasks?priority=High",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "Bug",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "Open",
+									"disabled": true
+								},
+								{
+									"key": "assign_to",
+									"value": "4",
+									"disabled": true
+								},
+								{
+									"key": "due_date",
+									"value": "2024-5-14",
+									"disabled": true
+								},
+								{
+									"key": "priority",
+									"value": "High"
+								},
+								{
+									"key": "depends_on",
+									"value": "null",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Oct 2024 20:55:59 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Tasks\": {\n        \"data\": [\n            {\n                \"id\": 13,\n                \"title\": \"task1\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"High\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 10:00:52\",\n                \"updated_at\": \"19-10-2024 10:00:52\"\n            },\n            {\n                \"id\": 16,\n                \"title\": \"task5\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"High\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 10:20:35\",\n                \"updated_at\": \"19-10-2024 10:20:35\"\n            },\n            {\n                \"id\": 17,\n                \"title\": \"task6\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"High\",\n                \"due_date\": \"2024-05-14\",\n                \"created_at\": \"19-10-2024 10:21:21\",\n                \"updated_at\": \"19-10-2024 10:21:21\"\n            },\n            {\n                \"id\": 25,\n                \"title\": \"task13\",\n                \"description\": \"description description description\",\n                \"type\": \"Bug\",\n                \"status\": \"Blocked\",\n                \"priority\": \"High\",\n                \"due_date\": \"2024-08-07\",\n                \"created_at\": \"19-10-2024 12:25:38\",\n                \"updated_at\": \"19-10-2024 12:25:38\"\n            }\n        ],\n        \"links\": {\n            \"first\": \"http://127.0.0.1:8001/api/tasks?page=1\",\n            \"last\": \"http://127.0.0.1:8001/api/tasks?page=1\",\n            \"prev\": null,\n            \"next\": null\n        },\n        \"meta\": {\n            \"current_page\": 1,\n            \"from\": 1,\n            \"last_page\": 1,\n            \"links\": [\n                {\n                    \"url\": null,\n                    \"label\": \"&laquo; Previous\",\n                    \"active\": false\n                },\n                {\n                    \"url\": \"http://127.0.0.1:8001/api/tasks?page=1\",\n                    \"label\": \"1\",\n                    \"active\": true\n                },\n                {\n                    \"url\": null,\n                    \"label\": \"Next &raquo;\",\n                    \"active\": false\n                }\n            ],\n            \"path\": \"http://127.0.0.1:8001/api/tasks\",\n            \"per_page\": 15,\n            \"to\": 4,\n            \"total\": 4\n        }\n    },\n    \"message\": \"Tasks retrived Successfully\"\n}"
+				},
+				{
+					"name": "filter task depends_on",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8001/api/tasks?depends_on=2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "Bug",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "Blocked",
+									"disabled": true
+								},
+								{
+									"key": "assign_to",
+									"value": "4",
+									"disabled": true
+								},
+								{
+									"key": "due_date",
+									"value": "2024-5-14",
+									"disabled": true
+								},
+								{
+									"key": "priority",
+									"value": "High",
+									"disabled": true
+								},
+								{
+									"key": "depends_on",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Oct 2024 20:58:49 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Tasks\": {\n        \"data\": [\n            {\n                \"id\": 14,\n                \"title\": \"task2\",\n                \"description\": \"description description description\",\n                \"type\": \"Feature\",\n                \"status\": \"Blocked\",\n                \"priority\": \"Medium\",\n                \"due_date\": \"2024-03-27\",\n                \"created_at\": \"19-10-2024 10:03:04\",\n                \"updated_at\": \"19-10-2024 10:03:04\"\n            },\n            {\n                \"id\": 18,\n                \"title\": \"task7\",\n                \"description\": \"description description description\",\n                \"type\": \"Feature\",\n                \"status\": \"Blocked\",\n                \"priority\": \"Medium\",\n                \"due_date\": \"2024-03-27\",\n                \"created_at\": \"19-10-2024 10:23:41\",\n                \"updated_at\": \"19-10-2024 10:23:41\"\n            },\n            {\n                \"id\": 19,\n                \"title\": \"task8\",\n                \"description\": \"description description description\",\n                \"type\": \"Feature\",\n                \"status\": \"Blocked\",\n                \"priority\": \"Medium\",\n                \"due_date\": \"2024-03-27\",\n                \"created_at\": \"19-10-2024 10:34:46\",\n                \"updated_at\": \"19-10-2024 10:34:46\"\n            },\n            {\n                \"id\": 20,\n                \"title\": \"task9\",\n                \"description\": \"description description description\",\n                \"type\": \"Feature\",\n                \"status\": \"Blocked\",\n                \"priority\": \"Medium\",\n                \"due_date\": \"2024-03-27\",\n                \"created_at\": \"19-10-2024 10:35:46\",\n                \"updated_at\": \"19-10-2024 10:35:46\"\n            },\n            {\n                \"id\": 21,\n                \"title\": \"task10\",\n                \"description\": \"description description description\",\n                \"type\": \"Feature\",\n                \"status\": \"Blocked\",\n                \"priority\": \"Medium\",\n                \"due_date\": \"2024-03-27\",\n                \"created_at\": \"19-10-2024 12:00:56\",\n                \"updated_at\": \"19-10-2024 12:00:56\"\n            },\n            {\n                \"id\": 29,\n                \"title\": \"task4\",\n                \"description\": \"description description description\",\n                \"type\": \"Feature\",\n                \"status\": \"Blocked\",\n                \"priority\": \"Medium\",\n                \"due_date\": \"2024-03-27\",\n                \"created_at\": \"20-10-2024 17:14:51\",\n                \"updated_at\": \"20-10-2024 17:14:51\"\n            }\n        ],\n        \"links\": {\n            \"first\": \"http://127.0.0.1:8001/api/tasks?page=1\",\n            \"last\": \"http://127.0.0.1:8001/api/tasks?page=1\",\n            \"prev\": null,\n            \"next\": null\n        },\n        \"meta\": {\n            \"current_page\": 1,\n            \"from\": 1,\n            \"last_page\": 1,\n            \"links\": [\n                {\n                    \"url\": null,\n                    \"label\": \"&laquo; Previous\",\n                    \"active\": false\n                },\n                {\n                    \"url\": \"http://127.0.0.1:8001/api/tasks?page=1\",\n                    \"label\": \"1\",\n                    \"active\": true\n                },\n                {\n                    \"url\": null,\n                    \"label\": \"Next &raquo;\",\n                    \"active\": false\n                }\n            ],\n            \"path\": \"http://127.0.0.1:8001/api/tasks\",\n            \"per_page\": 15,\n            \"to\": 6,\n            \"total\": 6\n        }\n    },\n    \"message\": \"Tasks retrived Successfully\"\n}"
+				},
+				{
+					"name": "filter task does not have dependency",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8001/api/tasks?depends_on=null",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "Bug",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "Blocked",
+									"disabled": true
+								},
+								{
+									"key": "assign_to",
+									"value": "4",
+									"disabled": true
+								},
+								{
+									"key": "due_date",
+									"value": "2024-5-14",
+									"disabled": true
+								},
+								{
+									"key": "priority",
+									"value": "High",
+									"disabled": true
+								},
+								{
+									"key": "depends_on",
+									"value": "null"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Oct 2024 21:24:53 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Tasks\": {\n        \"data\": [\n            {\n                \"id\": 26,\n                \"title\": \"ta123\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-04-03\",\n                \"created_at\": \"20-10-2024 17:10:46\",\n                \"updated_at\": \"20-10-2024 17:10:46\"\n            },\n            {\n                \"id\": 27,\n                \"title\": \"ta1234\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-04-03\",\n                \"created_at\": \"20-10-2024 17:12:39\",\n                \"updated_at\": \"20-10-2024 17:12:39\"\n            },\n            {\n                \"id\": 28,\n                \"title\": \"ta1\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-04-03\",\n                \"created_at\": \"20-10-2024 17:13:15\",\n                \"updated_at\": \"20-10-2024 17:13:15\"\n            }\n        ],\n        \"links\": {\n            \"first\": \"http://127.0.0.1:8001/api/tasks?page=1\",\n            \"last\": \"http://127.0.0.1:8001/api/tasks?page=2\",\n            \"prev\": \"http://127.0.0.1:8001/api/tasks?page=1\",\n            \"next\": null\n        },\n        \"meta\": {\n            \"current_page\": 2,\n            \"from\": 16,\n            \"last_page\": 2,\n            \"links\": [\n                {\n                    \"url\": \"http://127.0.0.1:8001/api/tasks?page=1\",\n                    \"label\": \"&laquo; Previous\",\n                    \"active\": false\n                },\n                {\n                    \"url\": \"http://127.0.0.1:8001/api/tasks?page=1\",\n                    \"label\": \"1\",\n                    \"active\": false\n                },\n                {\n                    \"url\": \"http://127.0.0.1:8001/api/tasks?page=2\",\n                    \"label\": \"2\",\n                    \"active\": true\n                },\n                {\n                    \"url\": null,\n                    \"label\": \"Next &raquo;\",\n                    \"active\": false\n                }\n            ],\n            \"path\": \"http://127.0.0.1:8001/api/tasks\",\n            \"per_page\": 15,\n            \"to\": 18,\n            \"total\": 18\n        }\n    },\n    \"message\": \"Tasks retrived Successfully\"\n}"
+				}
+			]
+		},
+		{
+			"name": "assign task",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{admin}}"
+					}
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "assign_to",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://127.0.0.1:8001/api/tasks/1/assign"
+			},
+			"response": [
+				{
+					"name": "assign task to another user",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "assign_to",
+									"value": "4",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8001/api/tasks/2/assign"
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 23 Oct 2024 17:04:23 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Task already assigned to user\"\n}"
+				},
+				{
+					"name": "assign task succefully",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "assign_to",
+									"value": "4",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8001/api/tasks/3/assign"
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 23 Oct 2024 17:08:53 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Task\": {\n        \"id\": 3,\n        \"title\": \"ta\",\n        \"description\": \"jkh oi\",\n        \"type\": \"Feature\",\n        \"status\": \"Open\",\n        \"priority\": \"Low\",\n        \"due_date\": \"2024-05-14\",\n        \"assign_to\": \"4\",\n        \"created_by\": 1\n    },\n    \"message\": \"Task Aassigned Successfully\"\n}"
+				},
+				{
+					"name": "unauthorized user or not creator",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "assign_to",
+									"value": "4",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8001/api/tasks/3/assign"
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 23 Oct 2024 17:09:16 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Unauthorized\"\n}"
+				},
+				{
+					"name": "user not found",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "assign_to",
+									"value": "9999",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8001/api/tasks/1/assign"
+					},
+					"status": "Unprocessable Content",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 11 Nov 2024 17:53:53 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User not found\",\n    \"errors\": {\n        \"assign_to\": [\n            \"User not found\"\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "reports daily-tasks",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is JSON\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response message is correct\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"Report generation started. You will receive a notification once it is ready.\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate 'Tasks' structure if it exists\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    if (responseData.Tasks) {\r",
+							"        pm.expect(responseData.Tasks).to.be.an('object');\r",
+							"        pm.expect(responseData.Tasks.data).to.be.an('array');\r",
+							"        responseData.Tasks.data.forEach(task => {\r",
+							"            pm.expect(task).to.have.property('title').that.is.a('string');\r",
+							"            pm.expect(task).to.have.property('type').that.is.a('string');\r",
+							"            pm.expect(task).to.have.property('status').that.is.a('string');\r",
+							"            pm.expect(task).to.have.property('priority').that.is.a('string');\r",
+							"        });\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tasks array contains at least one task object if it exists\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    if (responseData.hasOwnProperty('Tasks')) {\r",
+							"        pm.expect(responseData.Tasks).to.be.an('object');\r",
+							"        pm.expect(responseData.Tasks).to.have.property('data').that.is.an('array').that.is.not.empty;\r",
+							"    } else {\r",
+							"        console.warn(\"Property 'Tasks' does not exist in the response.\");\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Message field is a non-empty string\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Message should not be empty\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{admin}}"
+					}
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": "http://127.0.0.1:8001/api/reports/daily-tasks"
+			},
+			"response": [
+				{
+					"name": "reports daily-tasks no match",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "http://127.0.0.1:8001/api/reports/daily-tasks"
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 23 Oct 2024 18:29:29 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"No Task matched!\"\n}"
+				},
+				{
+					"name": "reports daily-tasks succeffully",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "http://127.0.0.1:8001/api/reports/daily-tasks"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 23 Oct 2024 18:30:13 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Tasks\": {\n        \"current_page\": 1,\n        \"data\": [\n            {\n                \"title\": \"ta\",\n                \"type\": \"Feature\",\n                \"status\": \"In_Progress\",\n                \"priority\": \"Low\"\n            },\n            {\n                \"title\": \"ta\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\"\n            }\n        ],\n        \"first_page_url\": \"http://127.0.0.1:8001/api/reports/daily-tasks?page=1\",\n        \"from\": 1,\n        \"next_page_url\": null,\n        \"path\": \"http://127.0.0.1:8001/api/reports/daily-tasks\",\n        \"per_page\": 10,\n        \"prev_page_url\": null,\n        \"to\": 2\n    },\n    \"message\": \"Tasks retrived Successfully\"\n}"
+				},
+				{
+					"name": "reports daily-tasks test",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "http://127.0.0.1:8001/api/reports/daily-tasks"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 09 Nov 2024 18:40:14 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "deny"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-Permitted-Cross-Domain-Policies",
+							"value": "none"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "no-referrer"
+						},
+						{
+							"key": "Cross-Origin-Embedder-Policy",
+							"value": "require-corp"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'none'; style-src 'self'; form-action 'self'"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Report generation started. You will receive a notification once it is ready.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "blocked Tasks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzI5NzA4OTU0LCJleHAiOjE3Mjk3MTI1NTQsIm5iZiI6MTcyOTcwODk1NCwianRpIjoid0xKY3JEdWg3YkhHaFRUQiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.4Ed6TN5wwn9BXCjCYQp-NDpYuYUrv21dkl5nJ36aWow"
+					}
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": "http://127.0.0.1:8001/api/tasks/blockedTasks"
+			},
+			"response": [
+				{
+					"name": "blocked Tasks for this admin",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "http://127.0.0.1:8001/api/tasks/blockedTasks"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 23 Oct 2024 19:18:11 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Tasks\": {\n        \"current_page\": 1,\n        \"data\": [\n            {\n                \"title\": \"task4\",\n                \"type\": \"Feature\",\n                \"priority\": \"Medium\",\n                \"due_date\": \"2024-03-27\"\n            },\n            {\n                \"title\": \"task16\",\n                \"type\": \"Feature\",\n                \"priority\": \"Medium\",\n                \"due_date\": \"2024-03-27\"\n            }\n        ],\n        \"first_page_url\": \"http://127.0.0.1:8001/api/tasks/blockedTasks?page=1\",\n        \"from\": 1,\n        \"next_page_url\": null,\n        \"path\": \"http://127.0.0.1:8001/api/tasks/blockedTasks\",\n        \"per_page\": 10,\n        \"prev_page_url\": null,\n        \"to\": 2\n    },\n    \"message\": \"Tasks retrived Successfully\"\n}"
+				}
+			]
+		},
+		{
+			"name": "list trashed tasks ",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzI5ODQ3MTUxLCJleHAiOjE3Mjk4NTA3NTEsIm5iZiI6MTcyOTg0NzE1MSwianRpIjoicEs0Y3o0U2lHbFE5czlJeCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.yQaou_dyy4nyxnavcVOqP2IbNxErbO-RM3URDR_PjQQ"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://127.0.0.1:8001/api/tasks/trashed"
+			},
+			"response": [
+				{
+					"name": "list trashed tasks",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:8001/api/tasks/trashed"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 23 Oct 2024 19:32:38 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Tasks\": {\n        \"current_page\": 1,\n        \"data\": [\n            {\n                \"id\": 2,\n                \"title\": \"ta\",\n                \"description\": \"jkh oi\",\n                \"type\": \"Feature\",\n                \"status\": \"Open\",\n                \"priority\": \"Low\",\n                \"due_date\": \"2024-05-14\",\n                \"assign_to\": 4,\n                \"created_by\": 1\n            }\n        ],\n        \"first_page_url\": \"http://127.0.0.1:8001/api/tasks/trashed?page=1\",\n        \"from\": 1,\n        \"next_page_url\": null,\n        \"path\": \"http://127.0.0.1:8001/api/tasks/trashed\",\n        \"per_page\": 10,\n        \"prev_page_url\": null,\n        \"to\": 1\n    },\n    \"message\": \"trashed Tasks retrived Successfully\"\n}"
+				}
+			]
+		},
+		{
+			"name": "soft delete task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzI5Nzk3NTMzLCJleHAiOjE3Mjk4MDExMzMsIm5iZiI6MTcyOTc5NzUzMywianRpIjoicW45aG9PcmVHWW83aUY2VCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.0b-Hr3KkZJ126BU3Sc7b1R_SUHsh9T-vbmHXJuUwlO8"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "http://127.0.0.1:8001/api/tasks/12/delete"
+			},
+			"response": [
+				{
+					"name": "admin not own task",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://127.0.0.1:8001/api/tasks/6/delete"
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 23 Oct 2024 19:46:37 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"You can not delete this task, You're not created!\"\n}"
+				},
+				{
+					"name": "soft delete task successfully",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://127.0.0.1:8001/api/tasks/3/delete"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 23 Oct 2024 19:48:33 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"task\": {\n        \"id\": 3,\n        \"title\": \"ta\",\n        \"description\": \"jkh oi\",\n        \"type\": \"Feature\",\n        \"status\": \"Open\",\n        \"priority\": \"Low\",\n        \"due_date\": \"2024-05-14\",\n        \"assign_to\": 4,\n        \"created_by\": 1\n    },\n    \"message\": \"Task Deleted Successfully\"\n}"
+				},
+				{
+					"name": "not found or deleted",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://127.0.0.1:8001/api/tasks/180/delete"
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 23 Oct 2024 19:53:11 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "57"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": null,\n    \"message\": \"Not found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "restore trashed task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzI5ODQ3MTUxLCJleHAiOjE3Mjk4NTA3NTEsIm5iZiI6MTcyOTg0NzE1MSwianRpIjoicEs0Y3o0U2lHbFE5czlJeCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.yQaou_dyy4nyxnavcVOqP2IbNxErbO-RM3URDR_PjQQ"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"url": "http://127.0.0.1:8001/api/tasks/6/restore"
+			},
+			"response": [
+				{
+					"name": "restore trashed task succefully",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"url": "http://127.0.0.1:8001/api/tasks/5/restore"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 23 Oct 2024 20:02:35 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Task\": {\n        \"id\": 5,\n        \"title\": \"ta\",\n        \"description\": \"jkh oi\",\n        \"type\": \"Feature\",\n        \"status\": \"Open\",\n        \"priority\": \"Low\",\n        \"due_date\": \"2024-10-23\",\n        \"created_at\": \"19-10-2024 07:23:11\",\n        \"updated_at\": \"21-10-2024 19:33:35\"\n    },\n    \"message\": \"Task restored Successfully\"\n}"
+				},
+				{
+					"name": "task not found in trashed",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"url": "http://127.0.0.1:8001/api/tasks/6/restore"
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 25 Oct 2024 09:07:30 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "\"Task not found\""
+				}
+			]
+		},
+		{
+			"name": "forceDelete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzI5ODQ3MTUxLCJleHAiOjE3Mjk4NTA3NTEsIm5iZiI6MTcyOTg0NzE1MSwianRpIjoicEs0Y3o0U2lHbFE5czlJeCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.yQaou_dyy4nyxnavcVOqP2IbNxErbO-RM3URDR_PjQQ"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "http://127.0.0.1:8001/api/tasks/14/forceDelete"
+			},
+			"response": [
+				{
+					"name": "force Delete task admin not creator",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://127.0.0.1:8001/api/tasks/6/forceDelete"
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 25 Oct 2024 09:26:53 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"You can not delete this task, You're not creator!\"\n}"
+				},
+				{
+					"name": "force Delete task not trashed",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://127.0.0.1:8001/api/tasks/13/forceDelete"
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 25 Oct 2024 09:32:10 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Task not found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "add attachment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzMxMDU1OTQxLCJleHAiOjE3MzEwNTk1NDEsIm5iZiI6MTczMTA1NTk0MSwianRpIjoid3E0R3FYYVh2dHFwazUzUCIsInN1YiI6IjMiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.Iq3LHAK_Pz-cBedGMyijZby9VHgEJhLilXExCZy7TiY"
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "attachment",
+							"type": "file",
+							"src": "/C:/Users/PCMAX/Pictures/Screenshots/Screenshot 2024-11-04 230107.png"
+						}
+					]
+				},
+				"url": "http://127.0.0.1:8001/api/tasks/3/attachment"
+			},
+			"response": [
+				{
+					"name": "Unauthenticated",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "attachment",
+									"type": "file",
+									"src": "/C:/Users/PCMAX/Pictures/Screenshots/Screenshot 2024-11-04 230107.png"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8001/api/tasks/3/attachment"
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 08 Nov 2024 08:50:57 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Unauthenticated.\"\n}"
+				},
+				{
+					"name": "add attachment",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "attachment",
+									"type": "file",
+									"src": "/C:/Users/PCMAX/Pictures/Screenshots/Screenshot 2024-11-04 230107.png"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8001/api/tasks/3/attachment"
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 08 Nov 2024 08:53:30 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "deny"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-Permitted-Cross-Domain-Policies",
+							"value": "none"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "no-referrer"
+						},
+						{
+							"key": "Cross-Origin-Embedder-Policy",
+							"value": "require-corp"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'none'; style-src 'self'; form-action 'self'"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Task\": {\n        \"id\": 3,\n        \"title\": \"task3\",\n        \"description\": \"jkh oi\",\n        \"type\": \"Bug\",\n        \"status\": \"Open\",\n        \"priority\": \"High\",\n        \"due_date\": \"2024-04-03\",\n        \"created_at\": \"25-10-2024 09:54:01\",\n        \"updated_at\": \"25-10-2024 09:54:01\",\n        \"attachments\": [\n            {\n                \"id\": 1,\n                \"path\": \"attachments/m639O4TNkpf0dLSNF49rmIjZSI9t9FrN.png\",\n                \"name\": \"Screenshot 2024-11-04 230107.png\",\n                \"user_id\": 1,\n                \"Task_id\": 3\n            },\n            {\n                \"id\": 2,\n                \"path\": \"attachments/ZFasvUmPlJpj75cBwCJ2fTDLJeZqf6kq.png\",\n                \"name\": \"Screenshot 2024-11-04 230107.png\",\n                \"user_id\": 3,\n                \"Task_id\": 3\n            }\n        ]\n    },\n    \"message\": \"File added successfullyScan completed successfully, no virus found :)\"\n}"
+				}
+			]
+		},
+		{
+			"name": "list Tasks for auth user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzMxMDg2NzM0LCJleHAiOjE3MzEwOTAzMzQsIm5iZiI6MTczMTA4NjczNCwianRpIjoiMFBVQkJRSDlCZEU0MUdYcyIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.klSCXnJe3Ns-dmUUITosSFXBT9om0BnwQaEKHj-DYa8"
+					}
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": "http://127.0.0.1:8001/api/listTasks"
+			},
+			"response": [
+				{
+					"name": "list Tasks for auth user",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "http://127.0.0.1:8001/api/listTasks"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8001"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 08 Nov 2024 12:18:12 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "deny"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-Permitted-Cross-Domain-Policies",
+							"value": "none"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "no-referrer"
+						},
+						{
+							"key": "Cross-Origin-Embedder-Policy",
+							"value": "require-corp"
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'none'; style-src 'self'; form-action 'self'"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Tasks\": [\n        {\n            \"id\": 1,\n            \"title\": \"ta1\",\n            \"description\": \"jkh oi\",\n            \"type\": \"Feature\",\n            \"status\": \"Open\",\n            \"priority\": \"Low\",\n            \"due_date\": \"2024-04-03\",\n            \"created_at\": \"25-10-2024 09:52:34\",\n            \"updated_at\": \"25-10-2024 09:52:34\"\n        },\n        {\n            \"id\": 3,\n            \"title\": \"task3\",\n            \"description\": \"jkh oi\",\n            \"type\": \"Bug\",\n            \"status\": \"Open\",\n            \"priority\": \"High\",\n            \"due_date\": \"2024-04-03\",\n            \"created_at\": \"25-10-2024 09:54:01\",\n            \"updated_at\": \"25-10-2024 09:54:01\"\n        },\n        {\n            \"id\": 4,\n            \"title\": \"task4\",\n            \"description\": \"description description description\",\n            \"type\": \"Feature\",\n            \"status\": \"Blocked\",\n            \"priority\": \"Medium\",\n            \"due_date\": \"2024-03-27\",\n            \"created_at\": \"25-10-2024 09:55:01\",\n            \"updated_at\": \"25-10-2024 09:55:01\"\n        },\n        {\n            \"id\": 5,\n            \"title\": \"task5\",\n            \"description\": \"description description description\",\n            \"type\": \"Feature\",\n            \"status\": \"Blocked\",\n            \"priority\": \"Medium\",\n            \"due_date\": \"2024-03-27\",\n            \"created_at\": \"25-10-2024 09:55:19\",\n            \"updated_at\": \"25-10-2024 09:55:19\"\n        },\n        {\n            \"id\": 7,\n            \"title\": \"task7\",\n            \"description\": \"description description description\",\n            \"type\": \"Feature\",\n            \"status\": \"Blocked\",\n            \"priority\": \"Medium\",\n            \"due_date\": \"2024-03-27\",\n            \"created_at\": \"25-10-2024 11:19:47\",\n            \"updated_at\": \"25-10-2024 11:19:47\"\n        }\n    ],\n    \"message\": \"Tasks retrived successfully\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "admin",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
